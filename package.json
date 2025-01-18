@@ -25,9 +25,11 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.0.0",
     "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.1",
     "prettier": "^3.0.0",
     "tailwindcss": "^3.4.17",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.0.0"
   },
   "engines": {
@@ -35,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/flexify-ui.git"
+    "url": "https://github.com/parveenkumar94123/flexify-ui.git"
   },
   "keywords": [
     "react",
