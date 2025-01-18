@@ -88,4 +88,4 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use personal access token here if you want to bypass the default GitHub token
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Use personal access token here if you want to bypass the default GitHub token
