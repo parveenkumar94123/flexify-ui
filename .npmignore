@@ -22,3 +22,6 @@ node_modules/
 
 # Local environment files
 .env
+
+# Ignore package-lock.json (optional, if you don't want it in the package)
+package-lock.json
