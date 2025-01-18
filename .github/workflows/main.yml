@@ -4,11 +4,8 @@ on:
   push:
     tags:
       - 'v*'  # Trigger the workflow on any version tag, e.g., v1.0.0
-  pull_request:
-    branches:
-      - main
   release:
-    types: [published] # Trigger CI/CD on published releases
+    types: [published]
 
 jobs:
   build:
@@ -88,4 +85,4 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Use personal access token here if you want to bypass the default GitHub token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
