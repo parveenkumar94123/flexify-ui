@@ -15,6 +15,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if required secrets are available
+        run: |
+          echo "Checking required secrets..."
+          
+          # Check if NPM_TOKEN exists
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "NPM_TOKEN is NOT available! Exiting..."
+            exit 1
+          else
+            echo "NPM_TOKEN is available!"
+          fi
+
+          # Check if GITHUB_TOKEN exists
+          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "GITHUB_TOKEN is NOT available! Exiting..."
+            exit 1
+          else
+            echo "GITHUB_TOKEN is available!"
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -48,31 +68,24 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check all secrets
-        run: |
-          echo "Checking all secrets..."
-          
-          # Check if NPM_TOKEN exists
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "NPM_TOKEN is NOT available!"
-          else
-            echo "NPM_TOKEN is available!"
-          fi
-          
-          # Check if GITHUB_TOKEN exists
-          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
-            echo "GITHUB_TOKEN is NOT available!"
-          else
-            echo "GITHUB_TOKEN is available!"
-          fi
-
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Publish to npm
         run: npm publish --access public
 
+      - name: Ensure tag exists for GitHub release
+        run: |
+          if [ -z "${GITHUB_REF##refs/tags/*}" ]; then
+            echo "Tag is present, proceeding with release creation."
+          else
+            echo "No tag found. Exiting release process."
+            exit 1
+          fi
+
       - name: Create a release
         uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use personal access token here if you want to bypass the default GitHub token
