@@ -1,6 +1,6 @@
 {
   "name": "flexify-ui-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A flexible UI library for React and Next.js with TypeScript and Tailwind CSS.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -17,8 +17,8 @@
     "README.md"
   ],
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": ">=18.0.0 <20.0.0",
+    "react-dom": ">=18.0.0 <20.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
