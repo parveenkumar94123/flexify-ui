@@ -1,0 +1,7 @@
+
+---
+
+### **7. Commands for Testing and Building**
+- **Run ESLint**:
+  ```bash
+  npm run lint
