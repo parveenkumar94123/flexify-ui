@@ -12,26 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if required secrets are available
-        run: |
-          echo "Checking required secrets..."
-          
-          # Check if NPM_TOKEN exists
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "NPM_TOKEN is NOT available! Exiting..."
-            exit 1
-          else
-            echo "NPM_TOKEN is available!"
-          fi
-
-          # Check if GITHUB_TOKEN exists
-          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
-            echo "GITHUB_TOKEN is NOT available! Exiting..."
-            exit 1
-          else
-            echo "GITHUB_TOKEN is available!"
-          fi
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -91,6 +71,17 @@ jobs:
           else
             echo "No tag found. Exiting release process."
             exit 1
+          fi
+
+      - name: Check if tag already exists on GitHub
+        run: |
+          TAG=${{ github.ref_name }}
+          echo "Checking if tag $TAG exists..."
+          if git ls-remote --tags origin | grep "refs/tags/$TAG$" > /dev/null; then
+            echo "Tag $TAG already exists on GitHub. Exiting..."
+            exit 0
+          else
+            echo "Tag $TAG does not exist. Proceeding..."
           fi
 
       - name: Create a release
