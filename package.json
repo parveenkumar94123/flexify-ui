@@ -1,5 +1,5 @@
 {
-  "name": "flexify-ui",
+  "name": "flexify-ui-test",
   "version": "1.0.0",
   "description": "A flexible UI library for React and Next.js with TypeScript and Tailwind CSS.",
   "main": "dist/index.js",
